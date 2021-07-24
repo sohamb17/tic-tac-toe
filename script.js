@@ -1,19 +1,44 @@
 const gameBoard = (() => {
-    let board = ['X', 'O', 'X', 'X', 'X', 'O', 'O', 'O', 'X'];
-    const render = () => {
-        const boardSquares = document.getElementsByClassName('boardSquare');
-        for(let i = 0; i < boardSquares.length; i++) {
-            boardSquares[i].textContent = board[i];
-        }
-    };
-    render();
-    return {};
+    let board = ['', '', '', '', '', '', '', '', ''];
+    return {board};
 })();
 
-const player = () => {
-
+const player = name => {
+    const getName = () => name;
+    const addMarker = boardSquare => {
+        if(boardSquare.className === 'boardSquare') {
+            boardSquare.textContent = name;
+            gameBoard.board[Array.prototype.indexOf.call(displayController.boardSquares, boardSquare)] = name;
+            boardSquare.classList.toggle('disabled');
+            displayController.render();
+            displayController.switchPlayer();
+        }
+    }
+    return {getName, addMarker};
 };
 
 const displayController = (() => {
-
+    const boardSquares = document.getElementsByClassName('boardSquare');
+    const render = () => {
+        for(let i = 0; i < boardSquares.length; i++) {
+            boardSquares[i].textContent = gameBoard.board[i];
+        }
+    };
+    const x = player('X');
+    const o = player('O');
+    let currentPlayer = x;
+    const switchPlayer = () => {
+        if(currentPlayer.getName() === 'X') {
+            currentPlayer = o;
+        } else {
+            currentPlayer = x;
+        }
+    }
+    const bind = () => {
+        for(let i = 0; i < boardSquares.length; i++) {
+            boardSquares[i].addEventListener('click', () => currentPlayer.addMarker(boardSquares[i]));
+        }
+    }
+    bind();
+    return {boardSquares, render, switchPlayer};
 })();

@@ -45,3 +45,11 @@ h1 {
     align-items: center;
     color: white;
 }
+
+.boardSquare:hover {
+    cursor: pointer;
+}
+
+.disabled:hover {
+    cursor: default;
+}
