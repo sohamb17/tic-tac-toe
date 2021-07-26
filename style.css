@@ -16,6 +16,31 @@ h1 {
     width: 100%;
 }
 
+#player-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.player {
+    width: 50%;
+    text-align: center;
+    font-size: 50px;
+    color: white;
+}
+
+@media screen and (max-width: 320px) {
+    .player {
+        font-size: 40px;
+    }
+}
+
+#player1 {
+    color: greenyellow;
+    font-weight: bold;
+}
+
 #gameBoard {
     width: 400px;
     height: 400px;
@@ -24,10 +49,10 @@ h1 {
     grid-template-columns: repeat(3, 1fr);
     background-color: white;
     gap: 5px;
-    margin: auto;
+    margin: 25px auto;
 }
 
-@media (max-width: 420px) {
+@media screen and (max-width: 420px) {
     #gameBoard {
         width: 90vw;
         height: 90vw;
