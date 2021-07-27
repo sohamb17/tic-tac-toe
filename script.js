@@ -42,41 +42,42 @@ const displayController = (() => {
         if(currentPlayer.getName() === 'X') {
             player1.setAttribute('style', 'color: white; font-weight: normal;');
             currentPlayer = o;
-            player2.setAttribute('style', 'color: greenyellow; font-weight: bold;');
+            player2.setAttribute('style', 'color: chartreuse; font-weight: bold;');
         } else {
             player2.setAttribute('style', 'color: white; font-weight: normal;');
             currentPlayer = x;
-            player1.setAttribute('style', 'color: greenyellow; font-weight: bold;');
+            player1.setAttribute('style', 'color: chartreuse; font-weight: bold;');
         }
+    }
+    const restartGame = () => {
+        if(over) {
+            for(let i = 0; i < players.length; i++) {
+                if(players[i].className === 'player hidden') {
+                    players[i].classList.toggle('hidden');
+                }
+            }
+            if(winner.className === 'winner') {
+                winner.classList.toggle('hidden');
+                winner.setAttribute('style', 'color: chartreuse;');
+            }
+        }
+        for(let i = 0; i < gameBoard.board.length; i++) {
+            gameBoard.board[i] = '';
+            if(boardSquares[i].className === 'boardSquare disabled') {
+                boardSquares[i].classList.toggle('disabled');
+            }
+            boardSquares[i].setAttribute('style', 'color: white;');
+        }
+        if(currentPlayer.getName() === 'O') {
+            switchPlayer();
+        }
+        render();
     }
     const bind = () => {
         for(let i = 0; i < boardSquares.length; i++) {
             boardSquares[i].addEventListener('click', () => currentPlayer.addMarker(boardSquares[i]));
         }
-        restart.addEventListener('click', () => {
-            if(over) {
-                for(let i = 0; i < players.length; i++) {
-                    if(players[i].className === 'player hidden') {
-                        players[i].classList.toggle('hidden');
-                    }
-                }
-                if(winner.className === 'winner') {
-                    winner.classList.toggle('hidden');
-                    winner.setAttribute('style', 'color: greenyellow;');
-                }
-            }
-            for(let i = 0; i < gameBoard.board.length; i++) {
-                gameBoard.board[i] = '';
-                if(boardSquares[i].className === 'boardSquare disabled') {
-                    boardSquares[i].classList.toggle('disabled');
-                }
-                boardSquares[i].setAttribute('style', 'color: white;');
-            }
-            if(currentPlayer.getName() === 'O') {
-                switchPlayer();
-            }
-            render();
-        });
+        restart.addEventListener('click', restartGame);
     }
     bind();
     const checkGameOver = () => {
@@ -129,7 +130,7 @@ const displayController = (() => {
                 }
                 winner.classList.toggle('hidden');
                 winner.textContent = 'Tie!';
-                winner.setAttribute('style', 'color: cyan;');
+                winner.setAttribute('style', 'color: gold;');
             }
         }
     }
@@ -145,7 +146,7 @@ const displayController = (() => {
         winner.classList.toggle('hidden');
         for(let i = 0; i < boardSquares.length; i++) {
             if(i === firstSquare || i === secondSquare || i === thirdSquare) {
-                boardSquares[i].setAttribute('style', 'color: greenyellow');
+                boardSquares[i].setAttribute('style', 'color: chartreuse');
             }
             if(boardSquares[i].className === 'boardSquare') {
                 boardSquares[i].classList.toggle('disabled');
