@@ -13,7 +13,8 @@ const player = name => {
             gameBoard.board[Array.prototype.indexOf.call(displayController.boardSquares, boardSquare)] = name;
             boardSquare.classList.toggle('disabled');
             displayController.render();
-            if(!displayController.checkGameOver()) {
+            displayController.checkGameOver();
+            if(!displayController.over) {
                 displayController.switchPlayer();
             }
         }
@@ -23,17 +24,20 @@ const player = name => {
 
 const displayController = (() => {
     const boardSquares = document.getElementsByClassName('boardSquare');
+    const restart = document.getElementById('restart');
+    const players = document.getElementsByClassName('player');
     const player1 = document.getElementById('player1');
     const player2 = document.getElementById('player2');
-    const restart = document.getElementById('restart');
+    const winner = document.getElementById('winner');
+    const x = player('X');
+    const o = player('O');
+    let currentPlayer = x;
+    let over = false;
     const render = () => {
         for(let i = 0; i < boardSquares.length; i++) {
             boardSquares[i].textContent = gameBoard.board[i];
         }
     };
-    const x = player('X');
-    const o = player('O');
-    let currentPlayer = x;
     const switchPlayer = () => {
         if(currentPlayer.getName() === 'X') {
             player1.setAttribute('style', 'color: white; font-weight: normal;');
@@ -50,11 +54,23 @@ const displayController = (() => {
             boardSquares[i].addEventListener('click', () => currentPlayer.addMarker(boardSquares[i]));
         }
         restart.addEventListener('click', () => {
+            if(over) {
+                for(let i = 0; i < players.length; i++) {
+                    if(players[i].className === 'player hidden') {
+                        players[i].classList.toggle('hidden');
+                    }
+                }
+                if(winner.className === 'winner') {
+                    winner.classList.toggle('hidden');
+                    winner.setAttribute('style', 'color: greenyellow;');
+                }
+            }
             for(let i = 0; i < gameBoard.board.length; i++) {
                 gameBoard.board[i] = '';
                 if(boardSquares[i].className === 'boardSquare disabled') {
                     boardSquares[i].classList.toggle('disabled');
                 }
+                boardSquares[i].setAttribute('style', 'color: white;');
             }
             if(currentPlayer.getName() === 'O') {
                 switchPlayer();
@@ -64,14 +80,14 @@ const displayController = (() => {
     }
     bind();
     const checkGameOver = () => {
-        let over = false;
+        over = false;
         for(let i = 0; i < 3; i++) {
             // check row
             let start = 3 * i;
             if(gameBoard.board[start] === 'X' || gameBoard.board[start] === 'O') {
                 if(gameBoard.board[start] === gameBoard.board[start + 1] && gameBoard.board[start] === gameBoard.board[start + 2]) {
                     over = true;
-                    gameOver(start, start + 1, start + 2);
+                    gameWon(start, start + 1, start + 2);
                     break;
                 }
             }
@@ -80,7 +96,7 @@ const displayController = (() => {
             if(gameBoard.board[start] === 'X' || gameBoard.board[start] === 'O') {
                 if(gameBoard.board[start] === gameBoard.board[start + 3] && gameBoard.board[start] === gameBoard.board[start + 6]) {
                     over = true;
-                    gameOver(start, start + 3, start + 6);
+                    gameWon(start, start + 3, start + 6);
                     break;
                 }
             }
@@ -91,7 +107,7 @@ const displayController = (() => {
             if(gameBoard.board[start] === 'X' || gameBoard.board[start] === 'O') {
                 if(gameBoard.board[start] === gameBoard.board[start + 4] && gameBoard.board[start] === gameBoard.board[start + 8]) {
                     over = true;
-                    gameOver(start, start + 4, start + 8);
+                    gameWon(start, start + 4, start + 8);
                 }
             }
         }
@@ -100,7 +116,7 @@ const displayController = (() => {
             if(gameBoard.board[start] === 'X' || gameBoard.board[start] === 'O') {
                 if(gameBoard.board[start] === gameBoard.board[start + 2] && gameBoard.board[start] === gameBoard.board[start + 4]) {
                     over = true;
-                    gameOver(start, start + 2, start + 4);
+                    gameWon(start, start + 2, start + 4);
                 }
             }
         }
@@ -108,19 +124,33 @@ const displayController = (() => {
         if(!over) {
             if(gameBoard.board.every(boardSquare => (boardSquare === 'X' || boardSquare === 'O'))) {
                 over = true;
-                console.log('Tie');
+                for(let i = 0; i < players.length; i++) {
+                    players[i].classList.toggle('hidden');
+                }
+                winner.classList.toggle('hidden');
+                winner.textContent = 'Tie!';
+                winner.setAttribute('style', 'color: cyan;');
             }
         }
-        return over;
     }
-    const gameOver = (firstSquare, secondSquare, thridSquare) => {
-        console.log(firstSquare, secondSquare, thridSquare);
-        console.log(`Winner: ${gameBoard.board[firstSquare]}`);
+    const gameWon = (firstSquare, secondSquare, thirdSquare) => {
+        if(gameBoard.board[firstSquare] === 'X') {
+            winner.textContent = `${player1.textContent} is the winner!`;
+        } else {
+            winner.textContent = `${player2.textContent} is the winner!`;
+        }
+        for(let i = 0; i < players.length; i++) {
+            players[i].classList.toggle('hidden');
+        }
+        winner.classList.toggle('hidden');
         for(let i = 0; i < boardSquares.length; i++) {
+            if(i === firstSquare || i === secondSquare || i === thirdSquare) {
+                boardSquares[i].setAttribute('style', 'color: greenyellow');
+            }
             if(boardSquares[i].className === 'boardSquare') {
                 boardSquares[i].classList.toggle('disabled');
             }
         }
     }
-    return {boardSquares, render, switchPlayer, checkGameOver};
+    return {boardSquares, render, switchPlayer, checkGameOver, over};
 })();

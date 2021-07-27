@@ -27,6 +27,7 @@ h1 {
 }
 
 #player-container {
+    margin-top: 25px;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -49,6 +50,18 @@ h1 {
 #player1 {
     color: greenyellow;
     font-weight: bold;
+}
+
+#winner {
+    width: 100%;
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+    color: greenyellow;
+}
+
+.hidden {
+    display: none;
 }
 
 #gameBoard {
