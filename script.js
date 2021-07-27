@@ -25,6 +25,7 @@ const displayController = (() => {
     const boardSquares = document.getElementsByClassName('boardSquare');
     const player1 = document.getElementById('player1');
     const player2 = document.getElementById('player2');
+    const restart = document.getElementById('restart');
     const render = () => {
         for(let i = 0; i < boardSquares.length; i++) {
             boardSquares[i].textContent = gameBoard.board[i];
@@ -48,6 +49,18 @@ const displayController = (() => {
         for(let i = 0; i < boardSquares.length; i++) {
             boardSquares[i].addEventListener('click', () => currentPlayer.addMarker(boardSquares[i]));
         }
+        restart.addEventListener('click', () => {
+            for(let i = 0; i < gameBoard.board.length; i++) {
+                gameBoard.board[i] = '';
+                if(boardSquares[i].className === 'boardSquare disabled') {
+                    boardSquares[i].classList.toggle('disabled');
+                }
+            }
+            if(currentPlayer.getName() === 'O') {
+                switchPlayer();
+            }
+            render();
+        });
     }
     bind();
     const checkGameOver = () => {
@@ -81,6 +94,8 @@ const displayController = (() => {
                     gameOver(start, start + 4, start + 8);
                 }
             }
+        }
+        if(!over) {
             start = 2;
             if(gameBoard.board[start] === 'X' || gameBoard.board[start] === 'O') {
                 if(gameBoard.board[start] === gameBoard.board[start + 2] && gameBoard.board[start] === gameBoard.board[start + 4]) {

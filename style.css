@@ -16,6 +16,16 @@ h1 {
     width: 100%;
 }
 
+#restart {
+    font-size: 40px;
+    display: block;
+    margin: auto;
+}
+
+#restart:hover {
+    cursor: pointer;
+}
+
 #player-container {
     width: 100%;
     display: flex;
@@ -32,7 +42,7 @@ h1 {
 
 @media screen and (max-width: 320px) {
     .player {
-        font-size: 40px;
+        font-size: 35px;
     }
 }
 
