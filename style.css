@@ -1,14 +1,15 @@
 * {
     font-family: Arial, Helvetica, sans-serif;
+    text-shadow: 4px 4px 5px chartreuse;
 }
 
 body {
-    background-color: #e30b5d;
+    background-color: black;
 }
 
 h1 {
     text-align: center;
-    font-size: 50px;
+    font-size: 80px;
     color: cyan;
 }
 
@@ -20,10 +21,14 @@ h1 {
     font-size: 40px;
     display: block;
     margin: auto;
+    font-weight: bold;
+    text-shadow: none;
+    border-radius: 10px;
 }
 
 #restart:hover {
     cursor: pointer;
+    box-shadow: 0px 0px 5px 5px chartreuse;
 }
 
 #player-container {
@@ -58,6 +63,7 @@ h1 {
     font-size: 50px;
     font-weight: bold;
     color: chartreuse;
+    text-shadow: 4px 4px 5px cyan;
 }
 
 .hidden {
@@ -83,7 +89,7 @@ h1 {
 }
 
 .boardSquare {
-    background-color: #e30b5d;
+    background-color: black;
     width: 100%;
     height: 100%;
     font-size: 60px;
@@ -96,8 +102,12 @@ h1 {
 
 .boardSquare:hover {
     cursor: pointer;
+    opacity: 0.8;
+    box-shadow: 0px 0px 5px 5px chartreuse;
 }
 
 .disabled:hover {
     cursor: default;
+    opacity: 1;
+    box-shadow: none;
 }

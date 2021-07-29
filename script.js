@@ -42,11 +42,11 @@ const displayController = (() => {
         if(currentPlayer.getName() === 'X') {
             player1.setAttribute('style', 'color: white; font-weight: normal;');
             currentPlayer = o;
-            player2.setAttribute('style', 'color: chartreuse; font-weight: bold;');
+            player2.setAttribute('style', 'color: chartreuse; font-weight: bold; text-shadow: 4px 4px 5px cyan;');
         } else {
             player2.setAttribute('style', 'color: white; font-weight: normal;');
             currentPlayer = x;
-            player1.setAttribute('style', 'color: chartreuse; font-weight: bold;');
+            player1.setAttribute('style', 'color: chartreuse; font-weight: bold; text-shadow: 4px 4px 5px cyan;');
         }
     }
     const restartGame = () => {
@@ -58,7 +58,7 @@ const displayController = (() => {
             }
             if(winner.className === 'winner') {
                 winner.classList.toggle('hidden');
-                winner.setAttribute('style', 'color: chartreuse;');
+                winner.setAttribute('style', 'color: chartreuse; text-shadow: 4px 4px 5px cyan;');
             }
         }
         for(let i = 0; i < gameBoard.board.length; i++) {
@@ -74,10 +74,11 @@ const displayController = (() => {
         render();
     }
     const bind = () => {
+        player1.setAttribute('style', 'text-shadow: 4px 4px 5px cyan;');
+        restart.addEventListener('click', restartGame);
         for(let i = 0; i < boardSquares.length; i++) {
             boardSquares[i].addEventListener('click', () => currentPlayer.addMarker(boardSquares[i]));
         }
-        restart.addEventListener('click', restartGame);
     }
     bind();
     const checkGameOver = () => {
@@ -130,7 +131,7 @@ const displayController = (() => {
                 }
                 winner.classList.toggle('hidden');
                 winner.textContent = 'Tie!';
-                winner.setAttribute('style', 'color: gold;');
+                winner.setAttribute('style', 'color: yellow; text-shadow: 4px 4px 5px blue;');
             }
         }
     }
@@ -146,7 +147,7 @@ const displayController = (() => {
         winner.classList.toggle('hidden');
         for(let i = 0; i < boardSquares.length; i++) {
             if(i === firstSquare || i === secondSquare || i === thirdSquare) {
-                boardSquares[i].setAttribute('style', 'color: chartreuse');
+                boardSquares[i].setAttribute('style', 'color: chartreuse; text-shadow: 4px 4px 5px cyan;');
             }
             if(boardSquares[i].className === 'boardSquare') {
                 boardSquares[i].classList.toggle('disabled');
