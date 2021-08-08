@@ -10,7 +10,19 @@
 </head>
 <body>
     <h1>Tic Tac Toe</h1>
-    <div id="container">
+    <div class="name-container">
+        <button class="name-button" id="pvp">Player VS Player</button>
+        <button class="name-button" id="pvc">Player VS Computer</button>
+        <div class="names hidden">
+            <form action="" onsubmit="displayController.changeName(); displayController.submitForm(); return false" class="names-box">
+                <h2>Enter Names</h2>
+                <input type="text" placeholder="Player1" id="input1">
+                <input type="text" placeholder="Player2" id="input2">
+                <button id="start">Start</button>
+            </form>
+        </div>
+    </div>
+    <div class="container hidden">
         <button type="reset" id="restart">Restart</button>
         <div id="player-container">
             <div class="player" id="player1">Player 1 (X)</div>

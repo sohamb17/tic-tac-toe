@@ -1,34 +1,88 @@
 * {
     font-family: Arial, Helvetica, sans-serif;
-    text-shadow: 4px 4px 5px chartreuse;
 }
 
 body {
-    background-color: black;
+    background-color: rgb(23, 16, 68);
 }
 
 h1 {
     text-align: center;
     font-size: 80px;
     color: cyan;
+    text-shadow: 4px 4px 5px chartreuse;
 }
 
-#container {
-    width: 100%;
+h2 {
+    text-align: center;
+    font-size: 40px;
+    color: white;
+    text-shadow: 4px 4px 5px chartreuse;
 }
 
-#restart {
+input {
+    height: 25px;
+    padding-left: 25px;
+    outline: none;
+    margin-bottom: 25px;
+    border-radius: 25px;
+}
+
+button {
     font-size: 40px;
     display: block;
     margin: auto;
     font-weight: bold;
-    text-shadow: none;
-    border-radius: 10px;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(72, 61, 139, 0.5);
+    color: white;
 }
 
-#restart:hover {
+button:hover {
     cursor: pointer;
     box-shadow: 0px 0px 5px 5px chartreuse;
+}
+
+.name-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
+}
+
+.name-button {
+    margin: 25px auto 25px auto;
+}
+
+.names {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    position: fixed;
+    background-color: rgb(23, 16, 68);
+}
+
+.names-box {
+    width: 25%;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    background-color: rgba(72, 61, 139, 0.5);
+    border-radius: 25px;
+    box-shadow: 0px 0px 5px 5px chartreuse;
+}
+
+#start {
+    background: rgba(23, 16, 68, 0.5);
+    margin-bottom: 10px;
+}
+
+.container {
+    width: 100%;
 }
 
 #player-container {
@@ -44,6 +98,7 @@ h1 {
     text-align: center;
     font-size: 50px;
     color: white;
+    text-shadow: 4px 4px 5px chartreuse;
 }
 
 @media screen and (max-width: 320px) {
@@ -89,7 +144,7 @@ h1 {
 }
 
 .boardSquare {
-    background-color: black;
+    background-color: rgb(23, 16, 68);
     width: 100%;
     height: 100%;
     font-size: 60px;
@@ -98,6 +153,7 @@ h1 {
     justify-content: center;
     align-items: center;
     color: white;
+    text-shadow: 4px 4px 5px chartreuse;
 }
 
 .boardSquare:hover {

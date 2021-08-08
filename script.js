@@ -23,6 +23,12 @@ const player = name => {
 };
 
 const displayController = (() => {
+    const nameContainer = document.getElementsByClassName('name-container');
+    const nameButtons = document.getElementsByClassName('name-button');
+    const names = document.getElementsByClassName('names');
+    const input1 = document.getElementById('input1');
+    const input2 = document.getElementById('input2');
+    const container = document.getElementsByClassName('container');
     const boardSquares = document.getElementsByClassName('boardSquare');
     const restart = document.getElementById('restart');
     const players = document.getElementsByClassName('player');
@@ -33,6 +39,25 @@ const displayController = (() => {
     const o = player('O');
     let currentPlayer = x;
     let over = false;
+    const submitForm = () => {
+        nameContainer[0].classList.toggle('hidden');
+        for(let j = 0; j < names.length; j++) {
+            names[j].classList.toggle('hidden');
+        }
+        container[0].classList.toggle('hidden');
+    };
+    const changeName = () => {
+        if(input1.value) {
+            player1.textContent = `${input1.value} (X)`;
+        } else {
+            player1.textContent = 'Player 1 (X)';
+        }
+        if(input2.value) {
+            player2.textContent = `${input2.value} (O)`;
+        } else if(player2.textContent !== 'Computer (O)') {
+            player2.textContent = 'Player 2 (O)';
+        }
+    }
     const render = () => {
         for(let i = 0; i < boardSquares.length; i++) {
             boardSquares[i].textContent = gameBoard.board[i];
@@ -71,9 +96,30 @@ const displayController = (() => {
         if(currentPlayer.getName() === 'O') {
             switchPlayer();
         }
+        submitForm();
+        for(let j = 0; j < names.length; j++) {
+            names[j].classList.toggle('hidden');
+        }
+        if(player2.textContent === 'Computer (O)') {
+            player2.textContent = '';
+        }
         render();
     }
     const bind = () => {
+        for(let i = 0; i < nameButtons.length; i++) {
+            nameButtons[i].addEventListener('click', () => {
+                for(let j = 0; j < names.length; j++) {
+                    names[j].classList.toggle('hidden');
+                }
+                if(nameButtons[i].id === 'pvc') {
+                    input2.setAttribute('style', 'display: none;');
+                    input2.value = '';
+                    player2.textContent = 'Computer (O)';
+                } else {
+                    input2.setAttribute('style', 'display: block;');
+                }
+            });
+        }
         player1.setAttribute('style', 'text-shadow: 4px 4px 5px cyan;');
         restart.addEventListener('click', restartGame);
         for(let i = 0; i < boardSquares.length; i++) {
@@ -154,5 +200,5 @@ const displayController = (() => {
             }
         }
     }
-    return {boardSquares, render, switchPlayer, checkGameOver, over};
+    return {submitForm, changeName, boardSquares, render, switchPlayer, checkGameOver, over};
 })();
