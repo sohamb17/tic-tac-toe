@@ -54,7 +54,7 @@ const displayController = (() => {
         }
         if(input2.value) {
             player2.textContent = `${input2.value} (O)`;
-        } else if(player2.textContent !== 'Computer (O)') {
+        } else {
             player2.textContent = 'Player 2 (O)';
         }
     }
@@ -100,9 +100,6 @@ const displayController = (() => {
         for(let j = 0; j < names.length; j++) {
             names[j].classList.toggle('hidden');
         }
-        if(player2.textContent === 'Computer (O)') {
-            player2.textContent = '';
-        }
         render();
     }
     const bind = () => {
@@ -110,13 +107,6 @@ const displayController = (() => {
             nameButtons[i].addEventListener('click', () => {
                 for(let j = 0; j < names.length; j++) {
                     names[j].classList.toggle('hidden');
-                }
-                if(nameButtons[i].id === 'pvc') {
-                    input2.setAttribute('style', 'display: none;');
-                    input2.value = '';
-                    player2.textContent = 'Computer (O)';
-                } else {
-                    input2.setAttribute('style', 'display: block;');
                 }
             });
         }
